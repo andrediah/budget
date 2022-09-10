@@ -1,0 +1,15 @@
+<table>
+    <thead>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Amount</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let e of (expenseList$ | async)">
+            <td>{{e.Description}} </td>
+            <td>{{Category[e.Category]}} </td>
+            <td>{{e.Amount}} </td>
+        </tr>
+    </tbody>
+        
+</table>

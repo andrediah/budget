@@ -1,0 +1,48 @@
+
+<form  (ngSubmit)="addExpense()" #myForm="ngForm" >
+
+    <label for="amount">Amount</label>
+    <!-- <input name="amount" id="amount" [(ngModel)]="newExpense.Amount"  #name="ngModel" min="1" type="number" required ><br> -->
+    <input name="amount" id="amount"  [(ngModel)]="newExpense.Amount" 
+        #amount="ngModel" min="1" type="number" required > <br>
+   
+    <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert">
+        <div *ngIf="amount.errors?.['required']">
+        Amount is required.
+        
+        </div>
+    </div>
+
+    <label for="description">Description</label>
+    <input name="description" id="description" #description="ngModel" required minlength="3" [(ngModel)]="newExpense.Description"><br>
+    <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert">
+        <div *ngIf="description.errors?.['required']">
+            Description is required.
+        </div>
+        <div *ngIf="description.errors?.['minlength']">
+            Description must be at least 3 characters.
+        </div>
+    </div>
+
+    <label for="color">Category</label>
+
+    <select #dpCategory (change)="onSelectedCointType(dpCategory.value)" 
+    required  name="category" [(ngModel)]="newExpense.Category" required #category="ngModel"
+    appForbiddenName="0" min="2" >
+        <option value="0" >Select..</option>
+        <option *ngFor="let category of enumKeys"
+            [value]="category">{{Category[category]}}
+        </option>
+    </select>
+
+    <div *ngIf="category.invalid && (amount.dirty || amount.touched)" class="alert">
+        <div *ngIf="category.errors?.['required']">
+        Choose a category.
+        </div>      
+        <div *ngIf="category.errors?.['forbiddenName']">
+            Choose a category.
+          </div>
+    </div>
+
+    <button type="submit" [disabled]="!myForm.valid" >Save Changes </button>
+</form>
