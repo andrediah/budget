@@ -10,12 +10,13 @@ import { Expense } from '../interfaces/expense';
 export class BudgetService {
 
   private _expenseList:BehaviorSubject<Expense[]> = new BehaviorSubject<Expense[]>([
-    {Description:'Water',Amount:10,Category:Category.Bills},
-    {Description:'Groceries',Amount:10,Category:Category.Food},
-    {Description:'Electricity',Amount:10,Category:Category.Bills},
-    {Description:'Netflix',Amount:10,Category:Category.Entertainment}
+    // {Description:'Water',Amount:10,Category:Category.Bills},
+    // {Description:'Groceries',Amount:10,Category:Category.Food},
+    // {Description:'Electricity',Amount:10,Category:Category.Bills},
+    // {Description:'Netflix',Amount:10,Category:Category.Entertainment}
   ])
-  private _totalExpense:BehaviorSubject<number> = new BehaviorSubject<number> (10);
+  private _totalExpense:BehaviorSubject<number> = new BehaviorSubject<number> (0);
+  private _totalBudget:BehaviorSubject<number> = new BehaviorSubject<number> (1000);
   constructor() { }
 
   getBudget():Observable<Expense[]> {
@@ -25,10 +26,16 @@ export class BudgetService {
   updateExpense(expense:Expense[]):void{
     this._expenseList.next(expense)
   }
-  getTotal():Observable<number>{
+  getTotalExpense():Observable<number>{
     return this._totalExpense;
   }
-  setTotal(newTotal:number):void{
+  setTotalExpense(newTotal:number):void{
     this._totalExpense.next(newTotal);
+  }
+  getTotalBudget():Observable<number>{
+    return this._totalBudget;
+  }
+  setTotalBudget(newTotal:number):void{
+    this._totalBudget.next(newTotal);
   }
 }

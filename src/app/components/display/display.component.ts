@@ -19,7 +19,7 @@ export class DisplayComponent implements OnInit {
   
   ngOnInit(): void {
     this.expenseList$ = this.budgetService.getBudget();
-    this.totalExpense$ = this.budgetService.getTotal();
+    this.totalExpense$ = this.budgetService.getTotalExpense();
 
     
   }

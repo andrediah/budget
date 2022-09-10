@@ -18,6 +18,8 @@ export class FormComponent implements OnInit {
   constructor(private budgetService:BudgetService) { }
   expenseList$:Observable<Expense[]> | undefined;
   totalExpense$:Observable<number> | undefined;
+  totalBudget!:number;
+  
 
   newExpense:Expense = {
     Amount:0,
@@ -30,7 +32,11 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.expenseList$ = this.budgetService.getBudget();
-    this.totalExpense$ = this.budgetService.getTotal();
+    this.totalExpense$ = this.budgetService.getTotalExpense();
+    let sub1 = this.budgetService.getTotalBudget().subscribe((bud)=>{
+      this.totalBudget = bud;
+    });
+    sub1.unsubscribe();
 
   }
   addExpense():void{
@@ -47,13 +53,15 @@ export class FormComponent implements OnInit {
     
 
     console.log(expense);
-     
-   if (expense !== undefined && this.newExpense.Category !== Category.start ){
+    
+    totalExpense += this.newExpense.Amount;
+
+   if (expense !== undefined && this.newExpense.Category !== Category.start && totalExpense <= this.totalBudget) {
     expense.push(this.newExpense);
     this.budgetService.updateExpense(expense);
 
-    totalExpense+= this.newExpense.Amount;
-    this.budgetService.setTotal(totalExpense);
+    
+    this.budgetService.setTotalExpense(totalExpense);
     this.newExpense = {
       Amount:0,
       Category:Category.start,

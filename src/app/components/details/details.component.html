@@ -1,15 +1,26 @@
-<table>
-    <thead>
-        <th>Description</th>
-        <th>Category</th>
-        <th>Amount</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let e of (expenseList$ | async)">
-            <td>{{e.Description}} </td>
-            <td>{{Category[e.Category]}} </td>
-            <td>{{e.Amount}} </td>
-        </tr>
-    </tbody>
-        
-</table>
+<br>
+
+
+<div *ngIf="(expenseList$ | async)?.length === 0;else showTable " > Enter expense to begin
+    {{(expenseList$ | async)}}
+</div>
+
+<ng-template #showTable>
+    <table>
+        <thead>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of (expenseList$ | async)">
+                <td>{{e.Description}} </td>
+                <td>{{Category[e.Category]}} </td>
+                <td>{{e.Amount}} </td>
+            </tr>
+        </tbody>
+            
+    </table>
+</ng-template>
+
+
