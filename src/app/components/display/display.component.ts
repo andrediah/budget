@@ -13,15 +13,15 @@ export class DisplayComponent implements OnInit {
   constructor(private budgetService:BudgetService) { }
   expenseList$:Observable<Expense[]> | undefined;
   totalExpense$:Observable<number> | undefined;
+  totalBudget$:Observable<number> | undefined;
   
   
-  totalBudget:number = 1000;
+  
   
   ngOnInit(): void {
     this.expenseList$ = this.budgetService.getBudget();
-    this.totalExpense$ = this.budgetService.getTotalExpense();
-
-    
+    this.totalExpense$ = this.budgetService.getTotalExpense();    
+    this.totalBudget$ = this.budgetService.getTotalBudget();    
   }
 
 }

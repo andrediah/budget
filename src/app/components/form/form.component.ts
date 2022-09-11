@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Category } from 'src/app/enums/category';
 import { Dropdown } from 'src/app/interfaces/dropdown';
 import { Expense } from 'src/app/interfaces/expense';
@@ -17,9 +17,14 @@ export class FormComponent implements OnInit {
 
   constructor(private budgetService:BudgetService) { }
   expenseList$:Observable<Expense[]> | undefined;
-  totalExpense$:Observable<number> | undefined;
-  totalBudget!:number;
+  //totalExpense$:Observable<number> | undefined;
+  //totalBudget$:Observable<number> | undefined;
+
+  budgetSubscription : Subscription | undefined;
+  expenseSubscription : Subscription | undefined;
   
+  budget!:number;
+  expense!:number;
 
   newExpense:Expense = {
     Amount:0,
@@ -32,11 +37,13 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.expenseList$ = this.budgetService.getBudget();
-    this.totalExpense$ = this.budgetService.getTotalExpense();
-    let sub1 = this.budgetService.getTotalBudget().subscribe((bud)=>{
-      this.totalBudget = bud;
+    
+    this.budgetSubscription = this.budgetService.getTotalBudget().subscribe((bud)=>{
+      this.budget = bud;
     });
-    sub1.unsubscribe();
+    this.expenseSubscription = this.budgetService.getTotalExpense().subscribe((exp)=>{
+      this.expense = exp;
+    });
 
   }
   addExpense():void{
@@ -49,31 +56,31 @@ export class FormComponent implements OnInit {
         }, 0);
     });
     sub?.unsubscribe();   
-
-    
-
-    console.log(expense);
-    
     totalExpense += this.newExpense.Amount;
+    //let budget:number = 0;
+    // this.totalBudget$?.subscribe((bud)=>{
+    //   budget = bud;
+    // })
 
-   if (expense !== undefined && this.newExpense.Category !== Category.start && totalExpense <= this.totalBudget) {
-    expense.push(this.newExpense);
-    this.budgetService.updateExpense(expense);
+    if (expense !== undefined && this.newExpense.Category !== Category.start && totalExpense <= this.budget) {
+      expense.push(this.newExpense);
+      this.budgetService.updateExpense(expense);
 
-    
-    this.budgetService.setTotalExpense(totalExpense);
-    this.newExpense = {
-      Amount:0,
-      Category:Category.start,
-      Description:''
+      
+      this.budgetService.setTotalExpense(totalExpense);
+      this.newExpense = {
+        Amount:0,
+        Category:Category.start,
+        Description:''
+      }
     }
-
-   }
-   console.log(expense);
+  }
+  ngOnDestroy(){
+    this.budgetSubscription?.unsubscribe();
+    this.expenseSubscription?.unsubscribe();
   }
   onSelectedCointType(value:string): void {
    
 		this.newExpense.Category = +value;
-	}
-  
+	}  
 }

@@ -9,6 +9,7 @@ import { DisplayComponent } from './components/display/display.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { BudgetFormComponent } from './components/budget-form/budget-form.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     AppComponent,
     DetailsComponent,
     FormComponent,
-    DisplayComponent
+    DisplayComponent,
+    BudgetFormComponent
   ],
   imports: [
     BrowserModule,

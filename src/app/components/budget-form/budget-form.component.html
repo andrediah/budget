@@ -1,0 +1,32 @@
+<form  (ngSubmit)="setBudget()" #myForm="ngForm" >
+    <table>
+        <tr>
+            <td style="width: 100px;">
+                <label for="amount">Budget: </label>
+            </td>
+            <td>
+                <input name="amount" id="amount"  [(ngModel)]="newBudget" 
+                #amount="ngModel" min="1" type="number" required > <br>
+            
+                <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="alert">
+                    <div *ngIf="amount.errors?.['required']">
+                    Budget amount is required.
+                    
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" [disabled]="!myForm.valid" >Set Budget</button>
+            </td>
+            
+        </tr>
+    </table>
+
+
+
+    
+</form>
