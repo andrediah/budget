@@ -10,11 +10,13 @@ import { Expense } from '../interfaces/expense';
 export class BudgetService {
 
   private _expenseList:BehaviorSubject<Expense[]> = new BehaviorSubject<Expense[]>([
-    // {Description:'Water',Amount:10,Category:Category.Bills},
-    // {Description:'Groceries',Amount:10,Category:Category.Food},
-    // {Description:'Electricity',Amount:10,Category:Category.Bills},
-    // {Description:'Netflix',Amount:10,Category:Category.Entertainment}
-  ])
+    // {Description:'Water',Amount:100,Category:Category.Bills},
+    // {Description:'Groceries',Amount:200,Category:Category.Food},
+    // {Description:'Electricity',Amount:150,Category:Category.Bills},
+    // {Description:'Netflix',Amount:170,Category:Category.Entertainment},
+    // {Description:'G.A.P.',Amount:270,Category:Category.Clothing}
+  ]);
+
   private _totalExpense:BehaviorSubject<number> = new BehaviorSubject<number> (0);
   private _totalBudget:BehaviorSubject<number> = new BehaviorSubject<number> (1000);
   constructor() { }

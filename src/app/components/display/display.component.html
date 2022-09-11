@@ -1,3 +1,16 @@
 <span style="font-weight: bold;">Total Expenses: {{(totalExpense$ | async) | currency}}<br>
-<span style="font-weight: bold;">Total Budget: {{(totalBudget$ | async) | currency}} </span> <br><br>
+<span style="font-weight: bold;">Total Budget: {{(totalBudget$ | async) | currency}} </span> <br> <br>
 
+<table>
+    <tr *ngFor="let s of summary">
+        <td style="width: 100px;">
+            <span style="font-weight: lighter;"> {{s.Description}}: </span>
+        </td>
+        <td>
+            <span style="font-weight: lighter;">
+                {{s.Value | currency}}            
+            </span>
+        </td>
+    </tr>
+</table>
+<br> <br>
