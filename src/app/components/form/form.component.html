@@ -39,7 +39,7 @@
                 <label for="color">Category: </label>
             </td>
             <td>
-                <select #dpCategory (change)="onSelectedCointType(dpCategory.value)" 
+                <select #dpCategory (change)="onSelectedCategoryType(dpCategory.value)" 
                 required  name="category" [(ngModel)]="newExpense.Category" required #category="ngModel"
                 appForbiddenName="0" min="2" >
                     <option value="0" >Select..</option>
@@ -48,7 +48,7 @@
                     </option>
                 </select>
             
-                <div *ngIf="category.invalid && (amount.dirty || amount.touched)" class="alert">
+                <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert">
                     <div *ngIf="category.errors?.['required']">
                     Choose a category.
                     </div>      

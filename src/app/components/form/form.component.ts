@@ -79,7 +79,7 @@ export class FormComponent implements OnInit {
     this.budgetSubscription?.unsubscribe();
     this.expenseSubscription?.unsubscribe();
   }
-  onSelectedCointType(value:string): void {
+  onSelectedCategoryType(value:string): void {
    
 		this.newExpense.Category = +value;
 	}  
